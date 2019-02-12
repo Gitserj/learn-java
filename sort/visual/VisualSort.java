@@ -67,7 +67,7 @@ class VisualSort extends JFrame{
 
     public static void main(String[] args) throws InterruptedException {
 
-        VisualSort visualSort = new VisualSort(400, 200);
-        visualSort.bubbleSort();
+        VisualSort vSort = new VisualSort(400, 200);
+        vSort.bubbleSort();
     }
 }
