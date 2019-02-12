@@ -10,6 +10,18 @@ class VisualSort extends JFrame{
     private static final long serialVersionUID = 1L;
     private int arr[];
 
+    public VisualSort(int width, int height) {
+        arr = new int[width];
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = (int)(height*Math.random());
+            System.out.print(arr[i] + " ");
+        }
+        setSize(width,height);
+        setResizable(false);
+        setVisible(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
     public VisualSort(int array[]) {
         arr = array;
         setSize(400,300);
@@ -46,15 +58,8 @@ class VisualSort extends JFrame{
 
     public static void main(String[] args) throws InterruptedException {
 
-        // Инициализация массива для сортировки
-        int nums[] = new int[400];
-        System.out.print("Исходный массив:\t ");
-        for(int i = 0; i < nums.length; i++){
-            nums[i] = (int)(300*Math.random());
-            System.out.print(nums[i] + " ");
-        }
-
-        VisualSort visualSort = new VisualSort(nums);
+        // VisualSort visualSort = new VisualSort(nums);
+        VisualSort visualSort = new VisualSort(200, 300);
         visualSort.bubbleSort();
     }
 }
