@@ -19,13 +19,12 @@ class VisualSort extends JFrame{
     }
 
     public void paint(Graphics g){
-        // Очищаю фон
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, getWidth(), getHeight());
         // Рисую массив
-        g.setColor(Color.BLACK);
         for(int i = 0; i < this.getWidth(); i++){
+            g.setColor(Color.BLACK);
             g.drawLine(i, this.getHeight()-this.arr[i], i, this.getHeight());
+            g.setColor(Color.WHITE);
+            g.drawLine(i, 0, i, this.getHeight()-this.arr[i]);
         }
     }
 
