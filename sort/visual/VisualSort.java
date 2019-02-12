@@ -10,6 +10,8 @@ class VisualSort extends JFrame{
     private static final long serialVersionUID = 1L;
     private int arr[];
 
+    // Конструктор принимает желаемый размер окна
+    // и инциализирует соответствующий массив для сортировки
     public VisualSort(int width, int height) {
         arr = new int[width];
         for(int i = 0; i < arr.length; i++){
@@ -22,14 +24,19 @@ class VisualSort extends JFrame{
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
+    // Конструктор принимает указатель на массив для сортировки
+    // Высота окна фиксированная
     public VisualSort(int array[]) {
         arr = array;
-        setSize(400,300);
+        setSize(arr.length,300);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
+    // Метод paint - стандартный свинговый
+    // вызывается вместе с созданием нового экземпляра
+    // и при вызове метода .repaint();
     public void paint(Graphics g){
         // Рисую массив
         for(int i = 0; i < this.getWidth(); i++){
@@ -40,6 +47,7 @@ class VisualSort extends JFrame{
         }
     }
 
+    // Реализация сортировки пузырьком с вызовом .repaint();
     public void bubbleSort() throws InterruptedException {
         for(int i = 1; i < this.arr.length; i++){
             for(int j = this.arr.length-1; j >= i; j--){
@@ -50,16 +58,19 @@ class VisualSort extends JFrame{
         }
     }
 
+
+    // Стандартная конструкция для свапа двух элементов в массиве
     private static void swap(int arr[], int a, int b){
         int buf = arr[a];
         arr[a] = arr[b];
         arr[b] = buf;
     }
 
+
+
     public static void main(String[] args) throws InterruptedException {
 
-        // VisualSort visualSort = new VisualSort(nums);
-        VisualSort visualSort = new VisualSort(200, 300);
+        VisualSort visualSort = new VisualSort(400, 200);
         visualSort.bubbleSort();
     }
 }
