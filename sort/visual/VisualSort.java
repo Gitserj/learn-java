@@ -16,7 +16,6 @@ class VisualSort extends JFrame{
         arr = new int[width];
         for(int i = 0; i < arr.length; i++){
             arr[i] = (int)(height*Math.random());
-            System.out.print(arr[i] + " ");
         }
         setSize(width,height);
         setResizable(false);
@@ -40,7 +39,7 @@ class VisualSort extends JFrame{
     public void paint(Graphics g){
         // Рисую массив
         for(int i = 0; i < this.getWidth(); i++){
-            g.setColor(Color.BLACK);
+            g.setColor(new Color(arr[i]));
             g.drawLine(i, this.getHeight()-this.arr[i], i, this.getHeight());
             g.setColor(Color.WHITE);
             g.drawLine(i, 0, i, this.getHeight()-this.arr[i]);
@@ -56,8 +55,8 @@ class VisualSort extends JFrame{
             this.repaint();
             TimeUnit.MILLISECONDS.sleep(50);
         }
+        System.out.println("Сортировка завершена");
     }
-
 
     // Стандартная конструкция для свапа двух элементов в массиве
     private static void swap(int arr[], int a, int b){
@@ -65,8 +64,6 @@ class VisualSort extends JFrame{
         arr[a] = arr[b];
         arr[b] = buf;
     }
-
-
 
     public static void main(String[] args) throws InterruptedException {
 
