@@ -34,7 +34,7 @@ class VisualSort extends JFrame{
                 if (this.arr[j-1] > this.arr[j]) swap(this.arr, j-1, j);
             }
             this.repaint();
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(50);
         }
     }
 
