@@ -1,4 +1,4 @@
-package sort.bubblesort;
+package sort.visual;
 
 import java.awt.Color;
 import java.awt.Graphics;
