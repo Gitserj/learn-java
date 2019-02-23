@@ -120,11 +120,54 @@ class DynQueue implements ICharQ {
     }
 }
 
+class DynCircularQueue implements ICharQ {
+    private char q[];
+    private int getloc, putloc;
+
+    public DynCircularQueue(int size){
+        q = new char[size + 1];
+        getloc = putloc = 0;
+    }
+
+    @Override
+    public void put(char ch) {
+        if(putloc+1 == getloc | ((putloc == q.length-1) & (getloc == 0))){
+            char t[] = new char[q.length * 2];
+            for(int i = 0; i < q.length; i++) t[i] = q[i];
+            q = t;
+        }
+        if(++putloc == q.length) putloc = 0;
+        q[putloc] = ch;
+    }
+
+    @Override
+    public char get() {
+        if(getloc == putloc){
+            System.out.println("\n- Очередь пуста");
+            getloc = putloc = 0;
+            return (char) 0;
+        }
+        if(++getloc == q.length) getloc = 0;
+        return q[getloc];
+    }
+
+    @Override
+    public int getLength() {
+        return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
+    }
+}
+
 class IQDemo {
     public static void main(String[] args) {
         FixedQueue fixQ = new FixedQueue(10);
         CircularQueue circQ = new CircularQueue(10);
         DynQueue dynQ = new DynQueue(5);
+        DynCircularQueue dynCircQ = new DynCircularQueue(10);
 
         ICharQ iQ;
 
@@ -171,5 +214,25 @@ class IQDemo {
         for(int i = 0; i <= 10; i++){
             System.out.print(iQ.get()+ " ");
         }
+
+        System.out.println("");        
+
+        iQ = dynCircQ;
+        System.out.println("Начальный размер: " + iQ.getLength());
+        System.out.println("Заполнение очереди.");
+        for(int i = 0; i <= 10; i++){
+            iQ.put((char)('z' - i));
+        }
+        System.out.println("Переполнение очереди.");
+        for(int i = 0; i <= 7; i++){
+            iQ.put((char)('z' - i));
+        }
+        System.out.println("Текущий размер: " + iQ.getLength());
+        System.out.println("Чтение из очереди.");
+        for(int i = 0; i <= 20; i++){
+            System.out.print(iQ.get()+ " ");
+        }
+
+        System.out.println(""); 
     }
 }
