@@ -9,6 +9,7 @@ class FixedQueue implements ICharQ {
         putloc = getloc = 0;
     }
 
+    @Override
     public void put(char ch){
         if(putloc == q.length - 1){
             System.out.println("- Очередь заполнена");
@@ -17,6 +18,7 @@ class FixedQueue implements ICharQ {
         q[++putloc] = ch;
     }
 
+    @Override
     public char get(){
         if(getloc == putloc){
             System.out.println("\n- Очередь пуста");
@@ -26,8 +28,14 @@ class FixedQueue implements ICharQ {
         return q[++getloc];
     }
 
+    @Override
     public int getLength(){
         return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
     }
 }
 
@@ -40,6 +48,7 @@ class CircularQueue implements ICharQ {
         getloc = putloc = 0;
     }
 
+    @Override
     public void put(char ch){
         if(putloc+1 == getloc | ((putloc == q.length-1) & (getloc == 0))){
             System.out.println("- Очередь заполнена");
@@ -49,6 +58,7 @@ class CircularQueue implements ICharQ {
         q[putloc] = ch;
     }
 
+    @Override
     public char get(){
         if(getloc == putloc){
             System.out.println("\n- Очередь пуста");
@@ -59,8 +69,14 @@ class CircularQueue implements ICharQ {
         return q[getloc];
     }
 
+    @Override
     public int getLength(){
         return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
     }
 }
 
@@ -73,6 +89,7 @@ class DynQueue implements ICharQ {
         getloc = putloc = 0;
     }
 
+    @Override
     public void put(char ch){
         if(putloc == q.length-1){
             char t[] = new char[q.length * 2];
@@ -82,6 +99,7 @@ class DynQueue implements ICharQ {
         q[++putloc] = ch;
     }
 
+    @Override
     public char get(){
         if(getloc == putloc){
             System.out.println("\n- Очередь пуста");
@@ -91,8 +109,14 @@ class DynQueue implements ICharQ {
         return q[++getloc];
     }
 
+    @Override
     public int getLength(){
         return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
     }
 }
 
