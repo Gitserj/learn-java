@@ -1,4 +1,5 @@
-package sort.visual;
+package main.VisualSort;
+
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
 
-class VisualSort extends JFrame{
+public class VisualSort extends JFrame{
     private static final long serialVersionUID = 1L;
     private int arr[];
 
