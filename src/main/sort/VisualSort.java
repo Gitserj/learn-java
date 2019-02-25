@@ -1,4 +1,4 @@
-package main.VisualSort;
+package main.sort;
 
 
 import java.awt.Color;
