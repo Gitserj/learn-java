@@ -1,0 +1,243 @@
+package main.que;
+
+class FixedQueue implements ICharQ {
+    private char q[];
+    private int putloc, getloc;
+
+    public FixedQueue(int size){
+        q = new char[size + 1];
+        putloc = getloc = 0;
+    }
+
+    @Override
+    public void put(char ch) throws QueueFullException{
+        if(putloc == q.length - 1){
+            throw new QueueFullException(q.length-1);
+        }
+        q[++putloc] = ch;
+    }
+
+    @Override
+    public char get() throws QueueEmptyException{
+        if(getloc == putloc){
+            throw new QueueEmptyException();
+        }
+        return q[++getloc];
+    }
+
+    @Override
+    public int getLength(){
+        return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
+    }
+}
+
+class CircularQueue implements ICharQ {
+    private char q[];
+    private int getloc, putloc;
+
+    public CircularQueue(int size){
+        q = new char[size + 1];
+        getloc = putloc = 0;
+    }
+
+    @Override
+    public void put(char ch){
+        if(putloc+1 == getloc | ((putloc == q.length-1) & (getloc == 0))){
+            System.out.println("- Очередь заполнена");
+            return;
+        }
+        if(++putloc == q.length) putloc = 0;
+        q[putloc] = ch;
+    }
+
+    @Override
+    public char get(){
+        if(getloc == putloc){
+            System.out.println("\n- Очередь пуста");
+            getloc = putloc = 0;
+            return (char) 0;
+        }
+        if(++getloc == q.length) getloc = 0;
+        return q[getloc];
+    }
+
+    @Override
+    public int getLength(){
+        return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
+    }
+}
+
+class DynQueue implements ICharQ {
+    private char q[];
+    private int getloc, putloc;
+
+    public DynQueue(int size){
+        q = new char[size + 1];
+        getloc = putloc = 0;
+    }
+
+    @Override
+    public void put(char ch){
+        if(putloc == q.length-1){
+            char t[] = new char[q.length * 2];
+            for(int i = 0; i < q.length; i++) t[i] = q[i];
+            q = t;
+        }
+        q[++putloc] = ch;
+    }
+
+    @Override
+    public char get(){
+        if(getloc == putloc){
+            System.out.println("\n- Очередь пуста");
+            getloc = putloc = 0;
+            return (char) 0;
+        }
+        return q[++getloc];
+    }
+
+    @Override
+    public int getLength(){
+        return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
+    }
+}
+
+class DynCircularQueue implements ICharQ {
+    private char q[];
+    private int getloc, putloc;
+
+    public DynCircularQueue(int size){
+        q = new char[size + 1];
+        getloc = putloc = 0;
+    }
+
+    @Override
+    public void put(char ch) {
+        if(putloc+1 == getloc | ((putloc == q.length-1) & (getloc == 0))){
+            char t[] = new char[q.length * 2];
+            for(int i = 0; i < q.length; i++) t[i] = q[i];
+            q = t;
+        }
+        if(++putloc == q.length) putloc = 0;
+        q[putloc] = ch;
+    }
+
+    @Override
+    public char get() {
+        if(getloc == putloc){
+            System.out.println("\n- Очередь пуста");
+            getloc = putloc = 0;
+            return (char) 0;
+        }
+        if(++getloc == q.length) getloc = 0;
+        return q[getloc];
+    }
+
+    @Override
+    public int getLength() {
+        return q.length;
+    }
+
+    @Override
+    public void reset() {
+        getloc = putloc = 0;
+    }
+}
+
+public class IQDemo {
+    public static void main(String[] args) throws QueueFullException, QueueEmptyException {
+        FixedQueue fixQ = new FixedQueue(10);
+        CircularQueue circQ = new CircularQueue(10);
+        DynQueue dynQ = new DynQueue(5);
+        DynCircularQueue dynCircQ = new DynCircularQueue(10);
+
+        ICharQ iQ;
+
+        iQ = fixQ;
+        try {
+            System.out.println("Заполнение фиксированной очереди.");
+            for (int i = 0; i <= 10; i++) {
+                iQ.put((char) ('a' + i));
+            }
+        } catch (QueueFullException exc) {
+            System.out.println(exc);
+        }
+        try {
+            System.out.println("Чтение из фиксированной очереди.");
+            for (int i = 0; i <= 10; i++) {
+                System.out.print(iQ.get() + " ");
+            }
+        } catch (QueueEmptyException exc){
+            System.out.println(exc);
+        }
+
+        System.out.println("");
+
+        iQ = dynQ;
+        System.out.println("Начальный размер динамической очереди: " + iQ.getLength());
+        System.out.println("Заполнение динамической очереди.");
+        for(int i = 0; i <= 10; i++){
+            iQ.put((char)('z' - i));
+        }
+        System.out.println("Текущий размер динамической очереди: " + iQ.getLength());
+        System.out.println("Чтение из динамической очереди.");
+        for(int i = 0; i <= 10; i++){
+            System.out.print(iQ.get()+ " ");
+        }
+
+        System.out.println("");
+
+        iQ = circQ;
+        System.out.println("Заполнение кольцевой очереди на половину.");
+        for(int i = 0; i <= 5; i++){
+            iQ.put((char)('a' + i));
+        }
+        System.out.println("Чтение из кольцевой очереди.");
+        for(int i = 0; i <= 10; i++){
+            System.out.print(iQ.get()+ " ");
+        }
+        System.out.println("Заполнение кольцевой очереди с переполнением.");
+        for(int i = 0; i <= 20; i++){
+            iQ.put((char)('a' + i));
+        }
+        System.out.println("Чтение из кольцевой очереди.");
+        for(int i = 0; i <= 10; i++){
+            System.out.print(iQ.get()+ " ");
+        }
+
+        System.out.println("");
+
+        iQ = dynCircQ;
+        System.out.println("Начальный размер: " + iQ.getLength());
+        System.out.println("Заполнение очереди.");
+        for(int i = 0; i <= 10; i++){
+            iQ.put((char)('z' - i));
+        }
+        System.out.println("Переполнение очереди.");
+        for(int i = 0; i <= 7; i++){
+            iQ.put((char)('z' - i));
+        }
+        System.out.println("Текущий размер: " + iQ.getLength());
+        System.out.println("Чтение из очереди.");
+        for(int i = 0; i <= 20; i++){
+            System.out.print(iQ.get()+ " ");
+        }
+
+        System.out.println("");
+    }
+}
