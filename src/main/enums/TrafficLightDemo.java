@@ -1,7 +1,16 @@
 package main.enums;
 
 enum TrafficLightColor {
-    RED, GREEN, YELLLOW
+    RED(10000), GREEN(12000), YELLLOW(2000);
+
+    private int dealy;
+    TrafficLightColor(int d){
+        dealy = d;
+    }
+
+    int getDealy(){
+        return dealy;
+    }
 }
 
 class TrafficLightSimulator implements Runnable {
@@ -61,13 +70,13 @@ class TrafficLightSimulator implements Runnable {
             try {
                 switch (tlc){
                     case GREEN:
-                        Thread.sleep(10000);
+                        Thread.sleep(tlc.getDealy());
                         break;
                     case YELLLOW:
-                        Thread.sleep(2000);
+                        Thread.sleep(tlc.getDealy());
                         break;
                     case RED:
-                        Thread.sleep(12000);
+                        Thread.sleep(tlc.getDealy());
                         break;
                 }
             } catch (InterruptedException e) {
