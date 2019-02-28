@@ -22,6 +22,22 @@ class MyIntPredicates {
     }
 }
 
+class MyInNum {
+    private int num;
+
+    MyInNum(int n){
+        num = n;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    boolean isFactor(int f){
+        return (num % f) == 0;
+    }
+}
+
 public class MethodRefDemo {
     static boolean numTest(IntPredicate ip, int num){
         return ip.test(num);
@@ -38,5 +54,16 @@ public class MethodRefDemo {
 
         result = numTest(MyIntPredicates::isPositive, 11);
         if(result) System.out.println("11 - положительное число");
+
+        MyInNum mInA = new MyInNum(12);
+        MyInNum mInB = new MyInNum(16);
+
+        IntPredicate ip = mInA::isFactor;
+        result = ip.test(3);
+        if(result) System.out.println("3 - делитель " + mInA.getNum());
+
+        ip = mInB::isFactor;
+        result = ip.test(3);
+        if(!result) System.out.println("3 -не делитель " + mInA.getNum());
     }
 }
