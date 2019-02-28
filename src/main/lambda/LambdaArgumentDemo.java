@@ -40,5 +40,8 @@ public class LambdaArgumentDemo {
         }, inStr);
         System.out.println("Реверс регистра: " + outStr);
 
+        outStr = changeStr((str) -> str.replace(" ", ""), inStr);
+        System.out.println("Удалить пробелы: " + outStr);
+
     }
 }
