@@ -1,4 +1,4 @@
-package main.gener;
+package main.generic;
 
 class NumFns <T extends Number> {
     T num;

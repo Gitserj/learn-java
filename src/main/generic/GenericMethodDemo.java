@@ -1,4 +1,4 @@
-package main.gener;
+package main.generic;
 
 public class GenericMethodDemo {
 

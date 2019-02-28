@@ -1,4 +1,4 @@
-package main.gener;
+package main.generic;
 
 interface Containment<T extends Number> {
     boolean contains(T o);
