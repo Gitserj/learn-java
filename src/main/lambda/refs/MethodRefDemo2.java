@@ -16,8 +16,7 @@ class MyInNum {
     }
 
     boolean hasCommonFactor(int a){
-        int limit = (num > a) ? num : a;
-        for(int i = 2; i <= limit; i++){
+        for(int i = 2; i < num/i; i++){
             if(((num % i) == 0) && ((a % i) == 0)) return true;
         }
         return false;
